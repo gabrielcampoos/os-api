@@ -1,0 +1,10 @@
+
+PUT http://localhost:8080/os/3cb57415-6101-42e9-8c13-2a83957be711 HTTP/1.1
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCIsInVzZXJuYW1lIjoiZ2FicmllbGNhbXBvb3MiLCJpYXQiOjE3MDc0MzE4NDgsImV4cCI6MTcwNzQzNTQ0OH0.JU11KRyPbx-gbSrUuoFTU-WDABcrOrX40f0In8evi5M
+
+{
+    "equipamento": "Monitor",
+    "descricao": "Tela queimada",
+    "valor": 250
+}

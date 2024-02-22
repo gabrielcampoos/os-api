@@ -1,0 +1,4 @@
+
+GET http://localhost:8080/usuarios HTTP/1.1
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCIsInBlcmZpbCI6IkFETUlOSVNUUkFET1IiLCJ1c2VybmFtZSI6ImFkbWluIiwibm9tZUVtcHJlc2EiOm51bGwsImlhdCI6MTY5NTc3ODUxNSwiZXhwIjoxNjk1NzgyMTE1fQ.RYu6syXQEhb58kfWKrTFKLdwUkzFrsW9XmtzWGF1qVw
