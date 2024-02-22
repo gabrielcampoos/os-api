@@ -32,6 +32,8 @@
   },
   "scripts": {
     "dev": "tsnd --respawn --transpile-only ./src/main/index.ts",
+    "build": "npx tsc",
+    "start": "node ./dist/main/index.js",
     "dev:db": "ts-node-dev --respawn --transpile-only ./src/main/config/database.config.ts",
     "dev:redis": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
