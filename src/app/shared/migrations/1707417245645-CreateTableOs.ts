@@ -43,5 +43,7 @@ export class CreateTableOs1707417245645 implements MigrationInterface {
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable("os", true, true, true);
+  }
 }

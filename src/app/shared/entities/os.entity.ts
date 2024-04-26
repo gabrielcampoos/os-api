@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { UsuariosEntity } from "./usuario.entity";
 
 @Entity({ name: "os" })
 export class OsEntity {
@@ -16,4 +17,7 @@ export class OsEntity {
 
   @Column()
   public valor!: number;
+
+  @ManyToOne(() => UsuariosEntity, (entity) => entity.os)
+  usuario!: UsuariosEntity;
 }
