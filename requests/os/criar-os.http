@@ -1,0 +1,11 @@
+
+POST http://localhost:8080/os HTTP/1.1
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCIsInVzZXJuYW1lIjoiZ2FicmllbGNhbXBvb3MiLCJpYXQiOjE3MDc2MDE0MDksImV4cCI6MTcwNzYwNTAwOX0.anMLYGPP4lNjhsEoo2qW-0YL9Otv5Crfqn_Nc9k52pA
+
+{
+    "nomeCliente": "João",
+    "equipamento": "notebook",
+    "descricao": "Troca de teclado",
+    "valor": 150
+}

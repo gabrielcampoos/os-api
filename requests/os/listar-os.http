@@ -1,0 +1,10 @@
+
+GET http://localhost:8080/os HTTP/1.1
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCIsInVzZXJuYW1lIjoiZ2FicmllbGNhbXBvb3MiLCJpYXQiOjE3MDc2MDMyOTcsImV4cCI6MTcwNzYwNjg5N30.1TEczBusWbLx-a1DY1ZYJUD4ybGoJNwXsLZ207HOoKQ
+
+{
+    # "nomeCliente": "Emerson"
+    # "equipamento": "Monitor"
+    "valor": 150
+}
