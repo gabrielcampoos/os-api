@@ -7,18 +7,27 @@ import { OsRepository } from "../repository";
 const PREFIX_CACHE = "listar-os";
 
 export class ListarOsUsecase {
-  async execute(filtros?: ListarOsFiltroDTO): Promise<ResultadoDTO> {
+  async execute(
+    username: string,
+    filtros?: ListarOsFiltroDTO
+  ): Promise<ResultadoDTO> {
     const osRepository = new OsRepository();
     const cacheRepository = new CacheRepository();
 
-    const osCache = await cacheRepository.get<OsJSON[]>(`${PREFIX_CACHE}`);
+    const busca = await osRepository.usuarioExiste(username);
+
+    if (!busca) return Resultado.erro(400, "Usuário não encontrado.");
+
+    const osCache = await cacheRepository.get<OsJSON[]>(
+      `${PREFIX_CACHE}-${username}`
+    );
     let os: OsJSON[] = [];
 
     if (!osCache) {
-      const osPrincipal = await osRepository.listarOs();
+      const osPrincipal = await osRepository.listarOs(username);
       os = osPrincipal.map((os) => os.toJSON());
 
-      await cacheRepository.set<OsJSON[]>(`${PREFIX_CACHE}`, os);
+      await cacheRepository.set<OsJSON[]>(`${PREFIX_CACHE}-${username}`, os);
     } else {
       os = osCache;
     }

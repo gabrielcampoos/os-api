@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from "typeorm";
 
 export class CreateTableOs1707417245645 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -33,11 +38,24 @@ export class CreateTableOs1707417245645 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "criado_por",
+            type: "varchar",
+            length: "100",
+          },
+          {
             name: "criado_em",
             type: "timestamp",
             isNullable: false,
             default: "now()",
           },
+        ],
+        foreignKeys: [
+          new TableForeignKey({
+            columnNames: ["criado_por"],
+            referencedColumnNames: ["username"],
+            referencedTableName: "usuarios",
+            name: "fk_os_criado_por",
+          }),
         ],
       })
     );

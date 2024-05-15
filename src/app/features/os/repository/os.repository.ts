@@ -1,17 +1,34 @@
 import { FindOptionsWhere } from "typeorm";
 import { DatabaseConnection } from "../../../../main/database/typeorm.connection";
 import { Os } from "../../../models";
-import { OsEntity } from "../../../shared/entities";
+import { OsEntity, UsuariosEntity } from "../../../shared/entities";
 import { AlterarOsDTO, CriarOsDTO } from "../dto";
 import { ListarOsFiltroDTO } from "../dto/listar-os-filtro.dto";
 
 export class OsRepository {
   private _manager = DatabaseConnection.connection.manager;
 
-  async verificarSeOsExiste(id: string): Promise<Os | null> {
-    const osExistente = await this._manager.findOneBy(OsEntity, { id });
+  async usuarioExiste(username: string): Promise<boolean> {
+    const usuarioExiste = await this._manager.findOneBy(UsuariosEntity, {
+      username,
+    });
 
-    if (!osExistente) return null;
+    return !!usuarioExiste;
+  }
+
+  async verificarSeOsExiste(
+    username: string,
+    id: string
+  ): Promise<Os | undefined> {
+    const osExistente = await this._manager.findOne(OsEntity, {
+      where: {
+        id: id,
+        criadoPor: username,
+      },
+      relations: { usuario: true },
+    });
+
+    if (!osExistente) return undefined;
 
     return this.entityToModel(osExistente);
   }
@@ -24,7 +41,7 @@ export class OsRepository {
     return this.entityToModel(osCriada);
   }
 
-  async listarOs(filtros?: ListarOsFiltroDTO): Promise<Os[]> {
+  async listarOs(username: string, filtros?: ListarOsFiltroDTO): Promise<Os[]> {
     const clausula: FindOptionsWhere<OsEntity> = {
       nomeCliente: filtros?.nomeCliente,
       equipamento: filtros?.equipamento,
@@ -74,7 +91,8 @@ export class OsRepository {
       dadosDB.nomeCliente,
       dadosDB.equipamento,
       dadosDB.descricao,
-      dadosDB.valor
+      dadosDB.valor,
+      dadosDB.criadoPor
     );
   }
 }

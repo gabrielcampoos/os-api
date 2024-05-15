@@ -12,7 +12,7 @@ export class CriarOsUsecase {
 
     const novaOs = await osRepository.criarOs(dados);
 
-    await cacheRepository.delete(`${PREFIX_CACHE}`);
+    await cacheRepository.delete(`${PREFIX_CACHE}-${dados.criadoPor}`);
 
     return Resultado.sucesso(200, "Os criada com sucesso.", novaOs.toJSON());
   }

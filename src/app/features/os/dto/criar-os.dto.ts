@@ -3,4 +3,5 @@ export interface CriarOsDTO {
   equipamento: string;
   descricao: string;
   valor: number;
+  criadoPor: string;
 }

@@ -9,7 +9,8 @@ import {
 
 export class OsController {
   static async criarOs(request: Request, response: Response) {
-    const { nomeCliente, equipamento, descricao, valor } = request.body;
+    const { nomeCliente, equipamento, descricao, valor, criadoPor } =
+      request.body;
 
     try {
       const usecase = new CriarOsUsecase();
@@ -19,6 +20,7 @@ export class OsController {
         equipamento,
         descricao,
         valor,
+        criadoPor,
       });
 
       return httpHelper.success(response, resultado);
@@ -31,16 +33,12 @@ export class OsController {
   }
 
   static async listarOs(request: Request, response: Response) {
-    const { nomeCliente, equipamento, valor } = request.body;
+    const { username } = request.usuario;
 
     try {
       const usecase = new ListarOsUsecase();
 
-      const resultado = await usecase.execute({
-        nomeCliente,
-        equipamento,
-        valor,
-      });
+      const resultado = await usecase.execute(username);
 
       return httpHelper.success(response, resultado);
     } catch (erro: any) {
@@ -53,13 +51,14 @@ export class OsController {
 
   static async editarOs(request: Request, response: Response) {
     const { idOs } = request.params;
-    const { equipamento, descricao, valor } = request.body;
+    const { username, equipamento, descricao, valor } = request.body;
 
     try {
       const usecase = new EditarOsUsecase();
 
       const resultado = await usecase.execute({
         idOs,
+        username,
         novosDados: {
           equipamento,
           descricao,
@@ -79,10 +78,12 @@ export class OsController {
   static async excluirOs(request: Request, response: Response) {
     const { id } = request.params;
 
+    const { username } = request.body;
+
     try {
       const usecase = new ExcluirOsUsecase();
 
-      const resultado = await usecase.execute(id);
+      const resultado = await usecase.execute(id, username);
 
       if (!resultado.sucesso)
         return httpHelper.badRequestError(response, resultado);

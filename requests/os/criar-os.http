@@ -1,11 +1,12 @@
 
 POST http://localhost:8080/os HTTP/1.1
 content-type: application/json
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCIsInVzZXJuYW1lIjoiZ2FicmllbGNhbXBvb3MiLCJpYXQiOjE3MDc2MDE0MDksImV4cCI6MTcwNzYwNTAwOX0.anMLYGPP4lNjhsEoo2qW-0YL9Otv5Crfqn_Nc9k52pA
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk0NmFjYmI5LTQ5YTYtNDk1Mi1iNGU4LTE5NzkyOWFjYWExNCIsIm5vbWUiOiJHYWJyaWVsIiwidXNlcm5hbWUiOiJnYWJyaWVsIiwiaWF0IjoxNzE1NzQ0MDU5LCJleHAiOjE3MTU3NDc2NTl9.uqyHTm6gMHx9M-52aoGwBrfMm99TLBQ49ju7xwgn0vE
 
 {
     "nomeCliente": "João",
     "equipamento": "notebook",
     "descricao": "Troca de teclado",
-    "valor": 150
+    "valor": 150,
+    "criadoPor": "gabriel"
 }

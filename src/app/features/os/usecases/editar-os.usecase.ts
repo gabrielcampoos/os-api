@@ -1,5 +1,6 @@
 import { CacheRepository } from "../../../shared/cache/cache.repository";
 import { Resultado, ResultadoDTO } from "../../../shared/utils";
+import { UsuariosRepository } from "../../usuarios/repository";
 import { EditarOsDTO } from "../dto";
 import { OsRepository } from "../repository";
 
@@ -7,12 +8,19 @@ const PREFIX_CACHE = "listar-os";
 
 export class EditarOsUsecase {
   async execute(dados: EditarOsDTO): Promise<ResultadoDTO> {
-    const { idOs, novosDados } = dados;
+    const { idOs, username, novosDados } = dados;
 
     const osRepository = new OsRepository();
+    const usuariosRepository = new UsuariosRepository();
     const cacheRepository = new CacheRepository();
 
-    const os = await osRepository.verificarSeOsExiste(dados.idOs);
+    const usuarioEncontrado =
+      await usuariosRepository.verificarSeUsuarioExistePorUsername(username);
+
+    if (!usuarioEncontrado)
+      return Resultado.erro(400, "Usuário não encontrado.");
+
+    const os = await osRepository.verificarSeOsExiste(username, idOs);
 
     if (!os) return Resultado.erro(400, "Os não encontrada.");
 
@@ -22,7 +30,8 @@ export class EditarOsUsecase {
       valor: novosDados.valor,
     });
 
-    await cacheRepository.delete(`${PREFIX_CACHE}`);
+    await cacheRepository.delete(`${PREFIX_CACHE}-${username}`);
+    await cacheRepository.delete(`${PREFIX_CACHE}-${idOs}`);
 
     if (!atualizada) return Resultado.erro(400, "Os não pode ser editada.");
 

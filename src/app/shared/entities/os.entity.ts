@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { UsuariosEntity } from "./usuario.entity";
 
 @Entity({ name: "os" })
@@ -18,6 +18,14 @@ export class OsEntity {
   @Column()
   public valor!: number;
 
+  @Column({ name: "criado_por" })
+  criadoPor!: string;
+
   @ManyToOne(() => UsuariosEntity, (entity) => entity.os)
+  @JoinColumn({
+    name: "criado_por",
+    foreignKeyConstraintName: "fk_os_criado_por",
+    referencedColumnName: "username",
+  })
   usuario!: UsuariosEntity;
 }

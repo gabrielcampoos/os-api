@@ -6,6 +6,7 @@ export interface OsJSON {
   equipamento: string;
   descricao: string;
   valor: number;
+  criadoPor: string;
   criadoEm: Date;
 }
 
@@ -23,7 +24,8 @@ export class Os extends Base {
     private _nomeCliente: string,
     private _equipamento: string,
     private _descricao: string,
-    private _valor: number
+    private _valor: number,
+    private _criadoPor: string
   ) {
     super(_id);
     this._criadoEm = new Date();
@@ -36,6 +38,7 @@ export class Os extends Base {
       equipamento: this._equipamento,
       descricao: this._descricao,
       valor: this._valor,
+      criadoPor: this._criadoPor,
       criadoEm: this._criadoEm,
     };
   }

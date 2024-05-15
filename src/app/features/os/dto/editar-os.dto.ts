@@ -1,5 +1,6 @@
 export interface EditarOsDTO {
   idOs: string;
+  username: string;
   novosDados: {
     equipamento: string;
     descricao: string;
