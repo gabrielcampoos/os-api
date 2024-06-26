@@ -14,7 +14,6 @@ export class UsuariosRepository {
     });
 
     if (!usuarioExistente) return null;
-
     return this.entityToModel(usuarioExistente);
   }
 
